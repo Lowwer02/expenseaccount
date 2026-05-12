@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#f4f4f8">
 <title>BridgeX.Finance</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -54,13 +55,33 @@ body.light .theme-btn{background:var(--pbg);border-color:var(--bdr);color:var(--
 html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:84px;overscroll-behavior:none}
 
-/* ── Topbar ── */
-.tb{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 16px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:0 2px 20px rgba(0,0,0,.5)}
+/* ── App Layout / Navigation ── */
+body{background:#13121b;color:#e5e0ed;padding-bottom:0}
+.app-sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:rgba(28,27,35,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-right:1px solid rgba(255,255,255,.10);z-index:310;padding:28px 18px;display:flex;flex-direction:column}
+.side-brand{font-family:var(--font-headline);font-size:25px;font-weight:700;color:#c7bfff;margin:16px 4px 56px}
+.side-nav{display:flex;flex-direction:column;gap:10px}
+.app-sidebar .tbtn{width:100%;height:48px;padding:0 16px;border-radius:8px;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;color:#c9c4d7;font-size:14px;font-weight:800;text-align:left}
+.app-sidebar .tbtn .ico{font-size:21px;width:24px;text-align:center;filter:grayscale(1) saturate(.2)}
+.app-sidebar .tbtn.on{background:#5638d6;color:#c7bfff}
+.side-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.side-sync{width:100%;height:48px;border-radius:8px;border:1px solid rgba(199,191,255,.24);background:#35343d;color:#c7bfff;font-family:var(--font-label);font-size:14px;font-weight:800;cursor:pointer}
+.side-link{border:none;background:transparent;color:#c9c4d7;font-family:var(--font-label);font-size:14px;font-weight:800;text-align:left;padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:12px}
+.side-user{display:flex;align-items:center;gap:12px;padding:14px 8px 0;border-top:1px solid rgba(255,255,255,.10);margin-top:6px}
+.side-avatar{width:42px;height:42px;border-radius:999px;background:linear-gradient(135deg,#2a2932,#4c35c4);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-weight:900;color:#c7bfff;font-family:var(--font-headline)}
+.side-user-name{font-family:var(--font-label);font-size:14px;font-weight:800;color:#e5e0ed;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side-user-sub{font-size:11px;color:#c9c4d7}
+.tb{background:rgba(19,18,27,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.10);padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:none;margin-left:250px}
 .tb-brand{display:flex;align-items:center;gap:8px}
-.tb-logo{width:28px;height:28px;background:var(--p);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;font-family:var(--font-headline)}
-.tb-name{font-family:var(--font-headline);font-size:16px;font-weight:700;letter-spacing:0;color:var(--tx)}
+.hamb{display:none;border:none;background:transparent;color:#c9c4d7;font-size:25px;line-height:1;cursor:pointer}
+.tb-logo{display:none}
+.tb-name{font-family:var(--font-headline);font-size:26px;font-weight:700;letter-spacing:0;color:#e5e0ed}
 .tb-name span{color:var(--p)}
 .tb-right{display:flex;align-items:center;gap:8px}
+.top-search{width:252px;height:48px;border-radius:999px;background:#2a2932;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;padding:0 18px;color:#928ea0;font-family:var(--font-label);font-weight:700}
+.top-search input{border:none;background:transparent;outline:none;color:#e5e0ed;width:100%;font:inherit}
+.icon-btn{width:40px;height:40px;border:none;background:transparent;color:#c9c4d7;font-size:21px;cursor:pointer;position:relative}
+.icon-btn.notify::after{content:'';position:absolute;top:9px;right:8px;width:8px;height:8px;background:#4edea3;border-radius:999px}
+.tb .theme-btn,.tb .sync-pill{display:none}
 .user-pill{display:flex;flex-direction:column;align-items:flex-end;gap:2px;max-width:150px}
 .user-pill-name{font-size:11px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
 .user-pill-sub{font-size:9px;color:var(--mut);white-space:nowrap}
@@ -73,14 +94,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* ── Bottom Nav ── */
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);display:grid;grid-template-columns:repeat(6,1fr);z-index:300}
+/* ── Navigation Buttons ── */
+.bn{display:none}
 .tbtn{border:none;background:none;padding:10px 0 14px;font-family:var(--font-label);font-size:9.5px;font-weight:600;color:var(--mut);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .18s}
 .tbtn .ico{font-size:20px;line-height:1}
 .tbtn.on{color:var(--p)}
 
 /* ── Pages ── */
-.pg{display:none;padding:14px}
+.pg{display:none;padding:14px;margin-left:250px}
 .pg.on{display:block;animation:fadeIn .2s ease}
 
 /* ── Auth Screen ── */
@@ -177,8 +198,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .payer.on .nm{color:var(--pl)}
 
 /* ── Add Transaction V4.1.2 ── */
-#pg-add{background:#13121b;color:#e5e0ed;min-height:calc(100vh - 142px);padding:24px}
-.add-shell{width:100%;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:32px}
+#pg-add{background:#13121b;color:#e5e0ed;min-height:calc(100vh - 68px);padding:46px 42px 64px;margin-left:250px}
+.add-shell{width:100%;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:46px;align-items:start}
 .add-main{display:flex;flex-direction:column;gap:24px}
 .add-glass{background:rgba(25,25,35,.72);border:1px solid rgba(255,255,255,.10);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.24);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .add-amount-card{position:relative;overflow:hidden;padding:42px 28px 26px;background:linear-gradient(120deg,rgba(25,25,35,.78),rgba(76,53,196,.28))}
@@ -199,7 +220,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .add-panel-title{font-family:var(--font-label);font-size:15px;font-weight:800;color:#c9c4d7;margin-bottom:16px}
 #pg-add #cat-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 #pg-add #cat-chips .chip{min-height:84px;border-radius:8px;background:#2a2932;border-color:rgba(255,255,255,.06);color:#c9c4d7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;white-space:normal;font-size:11px;font-weight:700;padding:12px}
-#pg-add #cat-chips .chip::first-letter{font-size:26px}
+#pg-add #cat-chips .chip::before{content:attr(data-icon);font-family:'Material Symbols Outlined';font-size:26px;line-height:1;color:#c9c4d7;font-variation-settings:'FILL' 0,'wght' 600,'GRAD' 0,'opsz' 24}
+#pg-add #cat-chips .chip.on::before{color:#c7bfff}
 #pg-add #cat-chips .chip.on{background:rgba(76,53,196,.28);border-color:rgba(199,191,255,.55);color:#c7bfff}
 #pg-add #pay-chips{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
 #pg-add #pay-chips .chip{width:100%;border-radius:8px;background:#2a2932;border-color:rgba(255,255,255,.10);color:#e5e0ed;text-align:left;padding:13px 14px;font-size:14px}
@@ -226,7 +248,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .recent-meta{font-size:11px;color:#c9c4d7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .recent-amt{font-family:var(--font-label);font-size:14px;font-weight:800;color:#e5e0ed;white-space:nowrap}
 @media (max-width:900px){
-  #pg-add{padding:20px}
+  .app-sidebar{display:none}
+  .tb{margin-left:0;height:74px;padding:0 20px}
+  .hamb{display:block}
+  .tb-logo{display:none}
+  .tb-name{font-size:28px}
+  .top-search,.theme-btn,.sync-pill,.user-pill{display:none}
+  .icon-btn:not(.notify){display:none}
+  #pg-add{padding:32px 20px 48px;margin-left:0;min-height:calc(100vh - 74px)}
+  .pg{margin-left:0}
   .add-shell{display:block}
   .add-main{gap:20px}
   .add-grid{grid-template-columns:1fr;gap:20px}
@@ -236,7 +266,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
   #pg-add #cat-chips{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:430px){
-  #pg-add{padding:18px}
+  #pg-add{padding:32px 18px 48px}
+  .tb{padding:0 18px}
+  .tb-name{font-size:27px}
   .add-amount-card{padding:36px 22px 24px}
   #pg-add .amt-inp{font-size:56px;width:220px}
   #pg-add #cat-chips .chip{min-height:86px}
@@ -485,18 +517,43 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
   </div>
 </div>
 
+<!-- Desktop Sidebar -->
+<aside class="app-sidebar">
+  <div class="side-brand">BridgeX.Wallet</div>
+  <nav class="side-nav">
+    <button class="tbtn" onclick="goTab('dash',this)"><span class="ico">▦</span>Dashboard</button>
+    <button class="tbtn" onclick="goTab('cr',this)"><span class="ico">▣</span>Debt Planner</button>
+    <button class="tbtn" onclick="goTab('cr',this)"><span class="ico">▭</span>Credit</button>
+    <button class="tbtn on" onclick="goTab('add',this)"><span class="ico">＋</span>Add Transaction</button>
+    <button class="tbtn" onclick="goTab('hist',this)"><span class="ico">↺</span>History</button>
+    <button class="tbtn" onclick="goTab('inc',this)"><span class="ico">▤</span>Income</button>
+    <button class="tbtn" onclick="goTab('set',this)"><span class="ico">⚙</span>Settings</button>
+  </nav>
+  <div class="side-bottom">
+    <button class="side-sync" onclick="syncNow()">Sync Bank Accounts</button>
+    <button class="side-link" type="button">ⓘ Support</button>
+    <button class="side-link" type="button" onclick="doLogout()">⇥ Sign Out</button>
+    <div class="side-user">
+      <div class="side-avatar">BX</div>
+      <div>
+        <div class="side-user-name" id="hdr-name">-</div>
+        <div class="side-user-sub" id="hdr-sub">Joint Wealth Mode</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
 <!-- Topbar -->
 <div class="tb">
   <div class="tb-brand">
-    <div class="tb-logo">BX</div>
-    <div class="tb-name">Bridge<span>X</span></div>
+    <button class="hamb" type="button">☰</button>
+    <div class="tb-name">Add Transaction</div>
   </div>
   <div class="tb-right">
-    <div class="user-pill">
-      <div class="user-pill-name" id="hdr-name">-</div>
-      <div class="user-pill-sub" id="hdr-sub">trial</div>
-    </div>
+    <div class="top-search"><span>⌕</span><input type="text" placeholder="Search..."></div>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="เปลี่ยนธีม">🌙</button>
+    <button class="icon-btn" type="button" onclick="syncNow()">♻</button>
+    <button class="icon-btn notify" type="button">♢</button>
     <button class="sync-pill" onclick="syncNow()">
       <span class="sdot" id="sdot"></span>
       <span id="slbl">กำลังโหลด</span>
@@ -727,14 +784,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
   </div>
 </div>
 
-<div class="bn">
-  <button class="tbtn on" onclick="goTab('add',this)"><span class="ico">➕</span>รายจ่าย</button>
-  <button class="tbtn" onclick="goTab('hist',this)"><span class="ico">📋</span>ประวัติ</button>
-  <button class="tbtn" onclick="goTab('cr',this)"><span class="ico">💳</span>สินเชื่อ</button>
-  <button class="tbtn" onclick="goTab('dash',this)"><span class="ico">📊</span>Dashboard</button>
-  <button class="tbtn" onclick="goTab('inc',this)"><span class="ico">💵</span>รายรับ</button>
-  <button class="tbtn" onclick="goTab('set',this)"><span class="ico">⚙️</span>ตั้งค่า</button>
-</div>
 <div class="toast" id="toast"></div>
 <script>
 // ═══════════════════════════════════════════════════════
@@ -1322,7 +1371,18 @@ function mkChips(arr,selId,wrapId,onPick){
     b.textContent=c.l; b.onclick=function(){ onPick(c.id); }; w.appendChild(b);
   });
 }
-function renderCats(){ mkChips(S.cats,S.fc.cat,'cat-chips',function(id){ S.fc.cat=id; renderCats(); }); }
+function renderCats(){
+  var w=document.getElementById('cat-chips'); if(!w) return; w.innerHTML='';
+  var iconMap={food:'restaurant',drink:'local_cafe',snack:'bakery_dining',cat:'pets',shop:'shopping_bag',act:'sports_esports',trans:'directions_car',place:'home',inv:'trending_up',health:'medical_services',bill:'receipt_long',edu:'school',donate:'volunteer_activism',travel:'flight',fam:'family_restroom',other:'more_horiz'};
+  S.cats.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='chip'+(S.fc.cat===c.id?' on':'');
+    b.dataset.icon=iconMap[c.id]||'•';
+    b.textContent=String(c.l||'').replace(/^[^\wก-๙]+/,'').trim()||c.l;
+    b.onclick=function(){ S.fc.cat=c.id; renderCats(); };
+    w.appendChild(b);
+  });
+}
 function renderPays(){
   var w=document.getElementById('pay-chips'); if(!w) return; w.innerHTML='';
   S.pays.forEach(function(p){
