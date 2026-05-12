@@ -58,6 +58,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 /* ── App Layout / Navigation ── */
 body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 .app-sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:rgba(28,27,35,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-right:1px solid rgba(255,255,255,.10);z-index:310;padding:28px 18px;display:flex;flex-direction:column}
+.sidebar-backdrop{display:none}
 .side-brand{font-family:var(--font-headline);font-size:25px;font-weight:700;color:#c7bfff;margin:16px 4px 56px}
 .side-nav{display:flex;flex-direction:column;gap:10px}
 .app-sidebar .tbtn{width:100%;height:48px;padding:0 16px;border-radius:8px;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;color:#c9c4d7;font-size:14px;font-weight:800;text-align:left}
@@ -72,7 +73,7 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 .side-user-sub{font-size:11px;color:#c9c4d7}
 .tb{background:rgba(19,18,27,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.10);padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:none;margin-left:250px}
 .tb-brand{display:flex;align-items:center;gap:8px}
-.hamb{display:none;border:none;background:transparent;color:#c9c4d7;font-size:25px;line-height:1;cursor:pointer}
+.hamb{display:none;border:none;background:transparent;color:#c9c4d7;font-size:25px;line-height:1;cursor:pointer;position:relative;z-index:360;pointer-events:auto}
 .tb-logo{display:none}
 .tb-name{font-family:var(--font-headline);font-size:26px;font-weight:700;letter-spacing:0;color:#e5e0ed}
 .tb-name span{color:var(--p)}
@@ -211,6 +212,7 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 #pg-add .amt-inp::placeholder{color:rgba(199,191,255,.34)}
 .add-meta-row{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:34px;padding-top:24px;border-top:1px solid rgba(255,255,255,.07)}
 .add-date-wrap{display:flex;align-items:center;gap:12px;color:#c9c4d7}
+.add-date-wrap svg{width:24px;height:24px;stroke:#c9c4d7;stroke-width:2;fill:none;flex-shrink:0}
 .add-date-wrap input{width:auto;min-width:180px;background:#2a2932;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#e5e0ed;font-family:var(--font-body);font-size:15px;padding:10px 12px}
 .add-mode-toggle{display:flex;align-items:center;background:#35343d;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:4px;gap:4px}
 .add-mode-toggle span{font-family:var(--font-label);font-size:12px;font-weight:700;padding:8px 18px;border-radius:6px;color:#c9c4d7}
@@ -224,11 +226,13 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 #pg-add #cat-chips .chip.on::before{color:#c7bfff}
 #pg-add #cat-chips .chip.on{background:rgba(76,53,196,.28);border-color:rgba(199,191,255,.55);color:#c7bfff}
 #pg-add #pay-chips{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-#pg-add #pay-chips .chip{width:100%;border-radius:8px;background:#2a2932;border-color:rgba(255,255,255,.10);color:#e5e0ed;text-align:left;padding:13px 14px;font-size:14px}
+#pg-add #pay-chips .chip{width:100%;border-radius:8px;background:#2a2932;border-color:rgba(255,255,255,.10);color:#e5e0ed;text-align:left;padding:13px 14px;font-family:var(--font-label);font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px}
+#pg-add #pay-chips .chip::before{content:attr(data-icon);font-family:'Material Symbols Outlined';font-size:22px;line-height:1;color:#c9c4d7;font-variation-settings:'FILL' 0,'wght' 600,'GRAD' 0,'opsz' 24}
+#pg-add #pay-chips .chip.on::before{color:#c7bfff}
 #pg-add #pay-chips .chip.on{border-color:#c7bfff;background:rgba(76,53,196,.22);color:#c7bfff}
 #pg-add .add-panel .fld{margin-bottom:0}
 #pg-add .add-panel .fld label{font-size:15px;text-transform:none;letter-spacing:0;color:#c9c4d7;margin-bottom:10px}
-#pg-add .add-panel textarea{height:96px;background:#2a2932;border-color:rgba(255,255,255,.10);color:#e5e0ed;font-size:15px}
+#pg-add .add-panel textarea{height:96px;background:#2a2932;border-color:rgba(255,255,255,.10);color:#e5e0ed;font-family:var(--font-label);font-size:15px;font-weight:700}
 .add-actions{display:flex;justify-content:flex-end;gap:16px;padding-top:6px}
 .add-actions .btn-sm,.add-actions .btn-go{width:auto;min-width:112px;margin:0;justify-content:center;text-align:center;padding:13px 28px}
 .add-actions .btn-go{background:#c7bfff;color:#2b009e;box-shadow:none}
@@ -248,7 +252,10 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 .recent-meta{font-size:11px;color:#c9c4d7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .recent-amt{font-family:var(--font-label);font-size:14px;font-weight:800;color:#e5e0ed;white-space:nowrap}
 @media (max-width:900px){
-  .app-sidebar{display:none}
+  .app-sidebar{display:flex;transform:translateX(-105%);transition:transform .24s ease;z-index:380}
+  body.sidebar-open .app-sidebar{transform:translateX(0)}
+  .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:370}
+  body.sidebar-open .sidebar-backdrop{display:block}
   .tb{margin-left:0;height:74px;padding:0 20px}
   .hamb{display:block}
   .tb-logo{display:none}
@@ -257,11 +264,13 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
   .icon-btn:not(.notify){display:none}
   #pg-add{padding:32px 20px 48px;margin-left:0;min-height:calc(100vh - 74px)}
   .pg{margin-left:0}
-  .add-shell{display:block}
+  .add-shell{display:flex;flex-direction:column}
   .add-main{gap:20px}
   .add-grid{grid-template-columns:1fr;gap:20px}
-  .add-summary{display:none}
+  .add-summary{display:block;position:static;margin-top:20px;order:2}
+  .add-main{order:1}
   .add-meta-row{align-items:flex-start;flex-direction:column}
+  .add-date-wrap{width:100%;justify-content:center}
   .add-mode-toggle{width:max-content}
   #pg-add #cat-chips{grid-template-columns:repeat(3,1fr)}
 }
@@ -542,11 +551,12 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
     </div>
   </div>
 </aside>
+<div class="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
 
 <!-- Topbar -->
 <div class="tb">
   <div class="tb-brand">
-    <button class="hamb" type="button">☰</button>
+    <button class="hamb" type="button" onclick="toggleSidebar()">☰</button>
     <div class="tb-name">Add Transaction</div>
   </div>
   <div class="tb-right">
@@ -569,7 +579,7 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
         <div class="amt-lbl">Amount</div>
         <div class="amt-row"><span class="amt-cur">฿</span><input class="amt-inp" id="f-amt" type="number" placeholder="0.00" inputmode="decimal"></div>
         <div class="add-meta-row">
-          <div class="add-date-wrap"><span>📅</span><input type="date" id="f-dt"></div>
+          <div class="add-date-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg><input type="date" id="f-dt"></div>
           <div class="add-mode-toggle"><span class="on">Joint</span><span>Personal</span></div>
         </div>
       </div>
@@ -581,7 +591,7 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
         <div class="add-glass add-panel">
           <div class="add-panel-title">Payment Method</div>
           <div class="chips" id="pay-chips"></div>
-          <div class="fld"><label>Merchant / Note</label><textarea id="f-det" placeholder="e.g., Whole Foods"></textarea></div>
+          <div class="fld"><label>Merchant / Note</label><textarea id="f-det" placeholder="เช่น ข้าวมันไก่, ค่า Grab"></textarea></div>
         </div>
       </div>
       <div class="card" style="display:none">
@@ -790,7 +800,7 @@ body{background:#13121b;color:#e5e0ed;padding-bottom:0}
 // SUPABASE CONFIG
 // ═══════════════════════════════════════════════════════
 const SUPA_URL  = 'https://ahnbgcnydlquvondssoy.supabase.co';
-const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFobmJnY255ZGxxdXZvbmRzc295Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxODYxNDksImV4cCI6MjA5Mzc2MjE0OX0.G0jZjEFxgLBO_kJAG0IxVzpf5QnsV32Ja8p_ZHlMF-M';
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4bGtucmxzYWV5eXBoY3h5dmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0ODYwODAsImV4cCI6MjA5NDA2MjA4MH0.0OgmIUiSct2Clr3bJVgpKVvgs7y1zXCEus--3z1h2Yw';
 const sb = supabase.createClient(SUPA_URL, SUPA_ANON);
 
 // ═══════════════════════════════════════════════════════
@@ -1071,6 +1081,13 @@ function subscriptionBadge(){
   var cls=tier==='pro_109'?'pro':tier==='trial'?'warn':'ok';
   return '<span class="badge '+cls+'">'+tierLabel()+'</span>';
 }
+function withTimeout(promise, ms, label){
+  var timer;
+  var timeout=new Promise(function(_,reject){
+    timer=setTimeout(function(){ reject(new Error((label||'งานนี้')+' ใช้เวลานานเกินไป')); },ms);
+  });
+  return Promise.race([promise,timeout]).finally(function(){ clearTimeout(timer); });
+}
 
 // ═══════════════════════════════════════════════════════
 // AUTH
@@ -1081,7 +1098,7 @@ window.addEventListener('DOMContentLoaded', async function(){
     updateAuthButtons();
     sb.auth.onAuthStateChange(async function(event,session){
       try{
-        if(session&&session.user){
+        if(session&&session.user&&!S._loginBusy){
           S.user=session.user;
           await onLogin();
         }
@@ -1110,13 +1127,17 @@ async function doLogin(){
   var email=document.getElementById('auth-email').value.trim();
   var pw=document.getElementById('auth-pw').value;
   var btn=document.getElementById('login-btn');
+  var loading=document.getElementById('loading');
   if(!email||!pw){ showAuthErr('กรุณากรอกอีเมลและรหัสผ่าน'); return; }
   if(authMode==='signup'&&!hasPdpaConsent()){ showAuthErr('กรุณายอมรับข้อตกลงและนโยบายความเป็นส่วนตัวก่อนสมัคร'); return; }
   btn.textContent=authMode==='signup'?'⏳ กำลังสมัคร...':'⏳ กำลังเข้าสู่ระบบ...'; btn.disabled=true;
+  S._loginBusy=true;
+  if(loading) loading.classList.remove('off');
   try{
-    var res = authMode==='signup'
-      ? await sb.auth.signUp({email:email,password:pw})
-      : await sb.auth.signInWithPassword({email:email, password:pw});
+    var authPromise = authMode==='signup'
+      ? sb.auth.signUp({email:email,password:pw})
+      : sb.auth.signInWithPassword({email:email, password:pw});
+    var res = await withTimeout(authPromise,20000,'เข้าสู่ระบบ Supabase');
     if(res.error){
       showAuthErr(authMode==='signup'?res.error.message:'อีเมลหรือรหัสผ่านไม่ถูกต้อง');
       btn.textContent=authMode==='signup'?'สมัครสมาชิก':'เข้าสู่ระบบ'; btn.disabled=false;
@@ -1126,9 +1147,11 @@ async function doLogin(){
     await onLogin();
   }catch(e){
     console.error('email auth failed:',e);
-    showAuthErr(e.message||'เข้าสู่ระบบไม่สำเร็จ');
+    showAuthErr((e.message||'เข้าสู่ระบบไม่สำเร็จ')+' — ถ้ายังเป็นซ้ำให้เช็ก Supabase Auth Email provider / network');
   }finally{
     btn.textContent=authMode==='signup'?'สมัครสมาชิก':'เข้าสู่ระบบ'; btn.disabled=false;
+    S._loginBusy=false;
+    if(loading) loading.classList.add('off');
   }
 }
 function toggleAuthMode(){
@@ -1172,14 +1195,14 @@ function showAuthErr(msg){
 async function onLogin(){
   document.getElementById('auth-screen').classList.add('off');
   try{
-    await ensureProfile();
-    await ensureFamily();
+    await withTimeout(ensureProfile(),15000,'โหลด/สร้างโปรไฟล์');
+    await withTimeout(ensureFamily(),15000,'โหลด/สร้างครอบครัว');
     checkAccess();
     if(!S.profile.full_name){
       document.getElementById('onboard-name').value=(S.user.user_metadata&&S.user.user_metadata.full_name)||'';
       document.getElementById('onboard-modal').classList.add('on');
     }
-    await loadFamilyMembers();
+    await withTimeout(loadFamilyMembers(),15000,'โหลดสมาชิกครอบครัว');
   }catch(e){
     console.error('profile bootstrap failed:',e);
     toast('โหลดโปรไฟล์ไม่สำเร็จ: '+(e.message||e),'err');
@@ -1191,7 +1214,7 @@ async function onLogin(){
   renderHist(); renderCR(); renderDash(); renderIncSum(); renderSetStats(); renderAddSummary();
   document.getElementById('set-user').textContent=S.user?S.user.email:'';
   try{
-    await loadFromSupabase();
+    await withTimeout(loadFromSupabase(),20000,'โหลดข้อมูล Supabase');
   }catch(e){
     console.error('onLogin load failed:',e);
     toast('โหลดข้อมูลไม่สำเร็จ: '+(e.message||e),'err');
@@ -1353,12 +1376,18 @@ function goTab(id,btn){
   document.querySelectorAll('.tbtn').forEach(function(b){ b.classList.remove('on'); });
   document.getElementById('pg-'+id).classList.add('on');
   btn.classList.add('on');
+  toggleSidebar(false);
   if(id==='hist') renderHist();
   if(id==='dash') renderDash();
   if(id==='cr')   renderCR();
   if(id==='inc')  renderIncSum();
   if(id==='set')  renderSetStats();
   if(id==='add')  renderAddSummary();
+}
+
+function toggleSidebar(force){
+  var open=typeof force==='boolean'?force:!document.body.classList.contains('sidebar-open');
+  document.body.classList.toggle('sidebar-open',open);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1387,7 +1416,9 @@ function renderPays(){
   var w=document.getElementById('pay-chips'); if(!w) return; w.innerHTML='';
   S.pays.forEach(function(p){
     var b=document.createElement('button'); b.className='chip'+(S.fc.pay===p.id?' on':'');
-    b.textContent=payIcon(p.l)+' '+p.l;
+    var icon=p.id==='cash'?'payments':p.id==='xfer'?'account_balance':p.id.indexOf('crpay_')===0?'credit_card':'account_balance_wallet';
+    b.dataset.icon=icon;
+    b.textContent=p.l;
     b.onclick=function(){ S.fc.pay=p.id; renderPays(); };
     w.appendChild(b);
   });
